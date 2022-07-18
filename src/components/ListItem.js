@@ -1,11 +1,12 @@
 import React from 'react'
+import './ListItem.css'
 
-function ListItem(props) {
+function ListItem({ task }) {
 	return (
-		<li>
-			<span>C</span>
-			<p>{props.text}</p>
-			<span>X</span>
+		<li className="listItem">
+			<span className={`Icon${task.completed ? ' Icon-complete' : ''}`}>✔</span>
+			<p className={`listItem-p${task.completed ? ' listItem-p--complete' : ''}`}>{task.text}</p>
+			<span className="Icon Icon-delete">🗑</span>
 		</li>
 	)
 }

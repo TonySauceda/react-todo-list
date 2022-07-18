@@ -1,12 +1,15 @@
 import React from 'react'
 import { ListItem } from './ListItem'
+import './List.css'
 
 function List({ tasks }) {
 	return (
 		<section>
-			{tasks.map((task) => (
-				<ListItem key={task.text} task={task} />
-			))}
+			<ul>
+				{tasks.map((task) => (
+					<ListItem key={task.text} task={task} />
+				))}
+			</ul>
 		</section>
 	)
 }

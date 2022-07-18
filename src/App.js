@@ -3,7 +3,7 @@ import { Counter } from './components/Counter'
 import { Search } from './components/Search'
 import { List } from './components/List'
 import { AddTaskButton } from './components/AddTaskButton'
-// import './App.css';
+import './App.css'
 
 const tasks = [
 	{ text: 'Task 1', completed: false },
@@ -13,12 +13,12 @@ const tasks = [
 
 function App() {
 	return (
-		<React.Fragment>
+		<div className="app">
 			<Counter />
 			<Search />
 			<List tasks={tasks} />
 			<AddTaskButton />
-		</React.Fragment>
+		</div>
 	)
 }
 
