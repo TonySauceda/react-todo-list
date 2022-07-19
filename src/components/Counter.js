@@ -1,8 +1,8 @@
 import React from 'react'
 import './Counter.css'
 
-function Counter() {
-	return <h2 className="counter">1 out of 3 tasks completed</h2>
+function Counter({ total, completed }) {
+	return <h2 className="counter">{`${total > 0 ? `You have completed ${completed} out of ${total} tasks` : ''}`}</h2>
 }
 
 export { Counter }
