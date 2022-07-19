@@ -8,7 +8,7 @@ import './App.css'
 
 function App() {
 	const [searchValue, setSearchValue] = React.useState('')
-	const [tasks, setTasks] = useLocalStorage('TODO_LIST_V1', [])
+	const { item: tasks, saveItem: setTasks, loading, error } = useLocalStorage('TODO_LIST_V1', [])
 	const completedTasks = tasks.filter((t) => t.completed).length
 	const totalTasks = tasks.length
 
@@ -43,6 +43,9 @@ function App() {
 
 	return (
 		<div className="app">
+			{error && <p className="error">{error}</p>}
+			{loading && <p className="loading">Loading...</p>}
+			{!loading && totalTasks === 0 && <p className="loading">Add your first task</p>}
 			<Counter total={totalTasks} completed={completedTasks} />
 			<Search searchValue={searchValue} setSearchValue={setSearchValue} />
 			<List tasks={searchedTasks} onComplete={completeTask} onDelete={deleteTask} />
