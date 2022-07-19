@@ -3,18 +3,12 @@ import { Counter } from './components/Counter'
 import { Search } from './components/Search'
 import { List } from './components/List'
 import { AddTaskButton } from './components/AddTaskButton'
+import { useLocalStorage } from './hooks/useLocalStorage'
 import './App.css'
 
-const testTasks = [
-	{ text: 'Task 1', completed: false },
-	{ text: 'Task 2', completed: true },
-	{ text: 'Task 3', completed: false },
-]
-
 function App() {
-	const [tasks, setTasks] = React.useState(testTasks)
 	const [searchValue, setSearchValue] = React.useState('')
-
+	const [tasks, setTasks] = useLocalStorage('TODO_LIST_V1', [])
 	const completedTasks = tasks.filter((t) => t.completed).length
 	const totalTasks = tasks.length
 
@@ -33,7 +27,7 @@ function App() {
 		const taskIndex = tasks.findIndex((t) => t.text === text)
 		if (taskIndex >= 0) {
 			const newTasks = [...tasks]
-			newTasks[taskIndex].completed = true
+			newTasks[taskIndex].completed = !newTasks[taskIndex].completed
 			setTasks(newTasks)
 		}
 	}
