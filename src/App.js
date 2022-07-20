@@ -3,54 +3,28 @@ import { Counter } from './components/Counter'
 import { Search } from './components/Search'
 import { List } from './components/List'
 import { AddTaskButton } from './components/AddTaskButton'
-import { useLocalStorage } from './hooks/useLocalStorage'
+import { TaskContext, TaskProvider } from './components/TaskContext'
 import './App.css'
 
 function App() {
-	const [searchValue, setSearchValue] = React.useState('')
-	const { item: tasks, saveItem: setTasks, loading, error } = useLocalStorage('TODO_LIST_V1', [])
-	const completedTasks = tasks.filter((t) => t.completed).length
-	const totalTasks = tasks.length
-
-	let searchedTasks = tasks
-
-	if (searchValue.length > 0) {
-		searchedTasks = tasks.filter((t) => {
-			const text = t.text.toLocaleLowerCase()
-			const searchtext = searchValue.toLocaleLowerCase()
-
-			return text.includes(searchtext)
-		})
-	}
-
-	const completeTask = (text) => {
-		const taskIndex = tasks.findIndex((t) => t.text === text)
-		if (taskIndex >= 0) {
-			const newTasks = [...tasks]
-			newTasks[taskIndex].completed = !newTasks[taskIndex].completed
-			setTasks(newTasks)
-		}
-	}
-
-	const deleteTask = (text) => {
-		const taskIndex = tasks.findIndex((t) => t.text === text)
-		if (taskIndex >= 0) {
-			const newTasks = [...tasks]
-			newTasks.splice(taskIndex, 1)
-			setTasks(newTasks)
-		}
-	}
-
 	return (
-		<div className="app">
-			{error && <p className="error">{error}</p>}
-			{loading && <p className="loading">Loading...</p>}
-			{!loading && totalTasks === 0 && <p className="loading">Add your first task</p>}
-			<Counter total={totalTasks} completed={completedTasks} />
-			<Search searchValue={searchValue} setSearchValue={setSearchValue} />
-			<List tasks={searchedTasks} onComplete={completeTask} onDelete={deleteTask} />
-			<AddTaskButton />
-		</div>
+		<TaskProvider>
+			<div className="app">
+				<TaskContext.Consumer>
+					{({ error, loading, totalTasks }) => (
+						<React.Fragment>
+							{error && <p className="error">{error}</p>}
+							{loading && <p className="loading">Loading...</p>}
+							{!loading && totalTasks === 0 && <p className="loading">Add your first task</p>}
+						</React.Fragment>
+					)}
+				</TaskContext.Consumer>
+				<Counter />
+				<Search />
+				<List />
+				<AddTaskButton />
+			</div>
+		</TaskProvider>
 	)
 }
 

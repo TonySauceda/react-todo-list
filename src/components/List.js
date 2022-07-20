@@ -1,13 +1,16 @@
 import React from 'react'
 import { ListItem } from './ListItem'
+import { TaskContext } from './TaskContext'
 import './List.css'
 
-function List({ tasks, onComplete, onDelete }) {
+function List() {
+	const { searchedTasks } = React.useContext(TaskContext)
+
 	return (
 		<section>
 			<ul>
-				{tasks.map((task) => (
-					<ListItem key={task.text} task={task} onComplete={onComplete} onDelete={onDelete} />
+				{searchedTasks.map((task) => (
+					<ListItem key={task.text} task={task} />
 				))}
 			</ul>
 		</section>
