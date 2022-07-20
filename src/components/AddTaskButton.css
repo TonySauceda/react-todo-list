@@ -4,15 +4,17 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 56px;
     font-weight: bold;
     color: #FAFAFA;
-    height: 32px;
-    width: 32px;
+    height: 64px;
+    width: 64px;
     position: absolute;
-    left: 50%;
     transform: scale(100%);
     transition: .3s ease;
+    left: 0;
+    top: 20px;
+    z-index: 1;
   }
   
   .addTaskButton:hover {
